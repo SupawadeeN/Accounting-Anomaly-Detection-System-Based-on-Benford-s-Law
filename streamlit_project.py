@@ -23,6 +23,7 @@ from openpyxl import Workbook, load_workbook
 from datetime import datetime
 from openpyxl.styles import Alignment
 from openpyxl.styles import PatternFill
+import streamlit as st
 
 def extract_first_digit(number):
     """ดึงเลขหลักแรกจากตัวเลข"""
@@ -31,8 +32,11 @@ def extract_first_digit(number):
     return number
 
 # เปิดหน้าต่างให้เลือกไฟล์ GL
-root = tk.Tk()
-root.withdraw()  # ซ่อนหน้าต่างหลัก
+uploaded_file = st.file_uploader("อัปโหลดไฟล์ Excel", type=["xlsx", "xls"])
+if uploaded_file:
+    # อ่านไฟล์ Excel
+    import pandas as pd
+    df = pd.read_excel(uploaded_file)
 
 if not gl_file:
     print("❌ คุณไม่ได้เลือกไฟล์ฐานข้อมูล(GL)!")
